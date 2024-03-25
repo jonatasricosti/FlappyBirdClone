@@ -18,7 +18,7 @@ int main(int argc, char*args[])
 SDL_Init(SDL_INIT_EVERYTHING);
 SDL_putenv("SDL_VIDEO_WINDOW_POS=center");
 tela = SDL_SetVideoMode(screen_width,screen_height,screen_bpp,SDL_SWSURFACE);
-
+SDL_WM_SetCaption("Flappy bird Clone", NULL);
 
 // game loop
 while(executando)
