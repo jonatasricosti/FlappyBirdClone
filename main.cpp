@@ -13,10 +13,27 @@ Uint32 start = 0;
 const int fps = 30;
 const int framerate =  1000/fps;
 
+SDL_Surface *iconImage = NULL;
+
+// use essa função pra carregar arquivos
+// nota: essa função só deve ser chamada no começo do programa
+void LoadFiles()
+{
+}
+
+// use essa função pra fechar arquivos
+// nota: essa função só deve ser chamada no final do programa
+void CloseFiles()
+{
+    SDL_FreeSurface(iconImage);
+}
+
 int main(int argc, char*args[])
 {
 SDL_Init(SDL_INIT_EVERYTHING);
 SDL_putenv("SDL_VIDEO_WINDOW_POS=center");
+iconImage = SDL_LoadBMP("gfx/icon.bmp");
+SDL_WM_SetIcon(iconImage, NULL);
 tela = SDL_SetVideoMode(screen_width,screen_height,screen_bpp,SDL_SWSURFACE);
 SDL_WM_SetCaption("Flappy bird Clone", NULL);
 
@@ -41,6 +58,8 @@ while(executando)
     }
 }
 
+
+CloseFiles();
 SDL_Quit();
 return 0;
 }
