@@ -4,8 +4,8 @@ SDL_Event evento;
 SDL_Surface *tela = NULL;
 bool executando = true;
 
-const int screen_width = 320;
-const int screen_height = 480;
+const int screen_width = 288;
+const int screen_height = 512;
 const int screen_bpp = 32;
 
 // para o framerate
