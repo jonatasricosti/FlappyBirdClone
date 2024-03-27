@@ -26,6 +26,7 @@ void DrawImage(int x, int y, SDL_Surface *image)
 SDL_Surface *iconImage = NULL;
 SDL_Surface *dayImage = NULL;
 SDL_Surface *nightImage = NULL;
+SDL_Surface *floorImage = NULL;
 
 
 
@@ -35,6 +36,7 @@ void LoadFiles()
 {
     dayImage = SDL_LoadBMP("gfx/day.bmp");
     nightImage = SDL_LoadBMP("gfx/night.bmp");
+    floorImage = SDL_LoadBMP("gfx/floor.bmp");
 }
 
 // use essa função pra fechar arquivos
@@ -44,6 +46,7 @@ void CloseFiles()
     SDL_FreeSurface(iconImage);
     SDL_FreeSurface(dayImage);
     SDL_FreeSurface(nightImage);
+    SDL_FreeSurface(floorImage);
 }
 
 
@@ -54,6 +57,25 @@ void DrawBackground(int CurrentTime)
         case 0: DrawImage(0,0,dayImage); break;
         case 1: DrawImage(0,0,nightImage); break;
         default: ;break;
+    }
+}
+
+// essa função desenha e move o chão
+void DrawAndMoveFloor(bool IcanMove)
+{
+    static int cx = 0;
+    static int speed = 6;
+
+    DrawImage(cx,screen_height - floorImage->h ,floorImage);
+    DrawImage(cx+screen_width,screen_height - floorImage->h ,floorImage);
+
+    if(IcanMove)
+    {
+        cx = cx - speed;
+        if(cx < -screen_width)
+        {
+            cx = 0;
+        }
     }
 }
 
@@ -86,6 +108,8 @@ while(executando)
     SDL_FillRect(tela, 0, 0xffffff);
 
     DrawBackground(CurrentTime);
+
+    DrawAndMoveFloor(true);
 
     SDL_Flip(tela);
     if(framerate > (SDL_GetTicks()-start))
